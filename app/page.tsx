@@ -4,10 +4,10 @@ import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Settings, Headphones, Wrench } from 'lucide-react';
-import FadeIn from '@/components/FadeIn';
 
 const Home: React.FC = () => {
   const parallaxRef = useRef<HTMLImageElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [businessWordIndex, setBusinessWordIndex] = React.useState(0);
 
   const businessWords = ['business', 'success', 'growth', 'future'];
@@ -24,6 +24,66 @@ const Home: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Interactive grid effect
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Set canvas size
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const gridSize = 50;
+    const filledSquares = new Map<string, number>();
+
+    const drawGrid = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw filled squares
+      filledSquares.forEach((opacity, key) => {
+        const [x, y] = key.split(',').map(Number);
+        ctx.fillStyle = `rgba(59, 130, 246, ${opacity * 0.15})`;
+        ctx.fillRect(x * gridSize, y * gridSize, gridSize, gridSize);
+
+        // Fade out
+        const newOpacity = opacity - 0.02;
+        if (newOpacity <= 0) {
+          filledSquares.delete(key);
+        } else {
+          filledSquares.set(key, newOpacity);
+        }
+      });
+
+      requestAnimationFrame(drawGrid);
+    };
+    drawGrid();
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = Math.floor((e.clientX - rect.left) / gridSize);
+      const y = Math.floor((e.clientY - rect.top) / gridSize);
+      const key = `${x},${y}`;
+
+      if (!filledSquares.has(key)) {
+        filledSquares.set(key, 1);
+      }
+    };
+
+    canvas.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setBusinessWordIndex((prevIndex) => (prevIndex + 1) % businessWords.length);
@@ -31,6 +91,30 @@ const Home: React.FC = () => {
 
     return () => clearInterval(interval);
   }, [businessWords.length]);
+
+  // Scroll animation observer
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all scroll-animate elements
+    const elements = document.querySelectorAll('.scroll-animate, .scroll-animate-left, .scroll-animate-right, .scroll-animate-scale');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
 
   return (
     <div className="flex flex-col">
@@ -55,6 +139,36 @@ const Home: React.FC = () => {
             transform: translateX(0);
           }
         }
+        @keyframes slideInRight {
+          from {
+            opacity: 0;
+            transform: translateX(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        @keyframes slideUpFade {
+          from {
+            opacity: 0;
+            transform: translateY(40px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
         .animate-fade-in-up {
           animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
           opacity: 0;
@@ -63,13 +177,65 @@ const Home: React.FC = () => {
           animation: slideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
           opacity: 0;
         }
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
-        .delay-500 { animation-delay: 0.5s; }
-        .delay-700 { animation-delay: 0.7s; }
-        .delay-900 { animation-delay: 0.9s; }
+        .animate-slide-in-right {
+          animation: slideInRight 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          opacity: 0;
+        }
+        .animate-scale-in {
+          animation: scaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          opacity: 0;
+        }
+        .animate-slide-up-fade {
+          animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          opacity: 0;
+        }
+        .scroll-animate {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scroll-animate.in-view {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .scroll-animate-left {
+          opacity: 0;
+          transform: translateX(-50px);
+          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scroll-animate-left.in-view {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .scroll-animate-right {
+          opacity: 0;
+          transform: translateX(50px);
+          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scroll-animate-right.in-view {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .scroll-animate-scale {
+          opacity: 0;
+          transform: scale(0.95);
+          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                      transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scroll-animate-scale.in-view {
+          opacity: 1;
+          transform: scale(1);
+        }
+        .delay-100 { animation-delay: 0.1s; transition-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; transition-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; transition-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; transition-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; transition-delay: 0.5s; }
+        .delay-700 { animation-delay: 0.7s; transition-delay: 0.7s; }
+        .delay-900 { animation-delay: 0.9s; transition-delay: 0.9s; }
         @keyframes float {
           0%, 100% {
             transform: translateY(0px);
@@ -119,36 +285,38 @@ const Home: React.FC = () => {
       `}</style>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
-        {/* Animated Background Elements */}
+      <section className="relative min-h-screen flex items-center bg-white overflow-hidden">
+        {/* Subtle Background Pattern */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* Gradient Orbs */}
-          <div className="absolute top-1/4 -left-48 w-96 h-96 bg-primary-600/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 -right-48 w-96 h-96 bg-accent-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-
           {/* Grid Pattern */}
-          <div className="absolute inset-0 opacity-10" style={{
-            backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.3) 1px, transparent 1px)`,
+          <div className="absolute inset-0 opacity-5" style={{
+            backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.5) 1px, transparent 1px)`,
             backgroundSize: '50px 50px'
           }}></div>
+          {/* Interactive Canvas */}
+          <canvas
+            ref={canvasRef}
+            className="absolute inset-0 pointer-events-auto"
+            style={{ mixBlendMode: 'multiply' }}
+          />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20 pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
-            <div className="space-y-8">
-              <div className="space-y-4 pb-4">
-                <h1 className="animate-slide-in-left delay-100 text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-tight">
+            <div className="space-y-2">
+              <div className="space-y-1">
+                <h1 className="animate-slide-in-left delay-100 text-5xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 tracking-tight leading-tight">
                   Expert IT Outsourced
                 </h1>
 
-                <h2 className="animate-slide-in-left delay-200 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight pb-2">
-                  <span className="text-white">for your </span>
+                <h2 className="animate-slide-in-left delay-200 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight pb-4">
+                  <span className="text-slate-900">for your </span>
                   <span
                     key={businessWordIndex}
-                    className="inline-block animate-flip"
+                    className="inline-block animate-flip pb-3"
                     style={{
-                      background: 'linear-gradient(to right, #3b82f6 0%, #3b82f6 30%, #ef4444 70%, #ef4444 100%)',
+                      background: 'linear-gradient(to right, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
@@ -163,7 +331,7 @@ const Home: React.FC = () => {
 
               {/* Subtitle */}
               <div className="animate-fade-in-up delay-300">
-                <p className="text-lg md:text-xl text-slate-300 leading-relaxed">
+                <p className="text-lg md:text-xl text-slate-600 leading-relaxed">
                   Delivering cost-effective managed services with advanced technology.
                 </p>
               </div>
@@ -172,23 +340,23 @@ const Home: React.FC = () => {
               <div className="animate-fade-in-up delay-500 flex flex-col sm:flex-row gap-4 pt-4">
                 <Link
                   href="/contact"
-                  className="group px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 transition-all flex items-center justify-center shadow-lg shadow-primary-600/50 hover:shadow-xl hover:shadow-primary-600/60 hover:scale-105 transform"
+                  className="px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl font-semibold flex items-center justify-center shadow-lg shadow-primary-500/30"
                 >
                   Let's Talk
-                  <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight size={20} className="ml-2" />
                 </Link>
                 <Link
                   href="/services"
-                  className="group px-8 py-4 bg-white/10 backdrop-blur-sm text-white border-2 border-white/20 rounded-xl font-semibold hover:bg-white hover:text-slate-900 transition-all flex items-center justify-center hover:scale-105 transform"
+                  className="px-8 py-4 bg-white border-2 border-primary-600 text-primary-600 rounded-xl font-semibold flex items-center justify-center shadow-sm"
                 >
                   Explore Services
-                  <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight size={20} className="ml-2" />
                 </Link>
               </div>
 
               {/* Trusted Partners */}
-              <div className="animate-fade-in-up delay-700 pt-8 border-t border-white/10">
-                <div className="text-sm text-slate-400 mb-4">Trusted by Market Leaders</div>
+              <div className="animate-fade-in-up delay-700 pt-8 border-t border-slate-200">
+                <div className="text-sm text-slate-500 mb-4">Trusted by Market Leaders</div>
                 <div className="flex flex-wrap gap-4">
                   {[
                     { name: 'IBM', logo: '/partners/IBM.png' },
@@ -214,7 +382,7 @@ const Home: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Visual */}
+            {/* Right Visual - Image with Floating Services */}
             <div className="relative animate-fade-in-up delay-400 hidden lg:block">
               <div className="relative">
                 {/* Main Image */}
@@ -223,16 +391,16 @@ const Home: React.FC = () => {
                     src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
                     alt="IT Team Collaboration"
                     width={600}
-                    height={700}
+                    height={600}
                     className="object-cover w-full h-[600px]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary-900/40 via-transparent to-transparent"></div>
                 </div>
 
-                {/* Floating Card 1 */}
-                <div className="absolute -left-8 top-20 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-float">
+                {/* Floating Card 1 - Manage IT Solutions */}
+                <div className="absolute -left-8 top-20 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-float border border-primary-100">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
                       <Settings className="text-white" size={24} />
                     </div>
                     <div>
@@ -242,15 +410,28 @@ const Home: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Floating Card 2 */}
-                <div className="absolute -right-8 bottom-32 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-float" style={{ animationDelay: '1s' }}>
+                {/* Floating Card 2 - End User Support */}
+                <div className="absolute -right-8 top-1/3 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-float border border-primary-100" style={{ animationDelay: '1s' }}>
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-accent-600 rounded-lg flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center">
                       <Headphones className="text-white" size={24} />
                     </div>
                     <div>
-                      <div className="text-sm font-semibold text-slate-900">Expert Support</div>
-                      <div className="text-xs text-slate-600">Always Available</div>
+                      <div className="text-sm font-semibold text-slate-900">User Support</div>
+                      <div className="text-xs text-slate-600">Expert Help</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Card 3 - Technology Support */}
+                <div className="absolute -left-8 bottom-24 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-float border border-primary-100" style={{ animationDelay: '0.5s' }}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary-700 to-primary-800 rounded-lg flex items-center justify-center">
+                      <Wrench className="text-white" size={24} />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-slate-900">Tech Support</div>
+                      <div className="text-xs text-slate-600">20+ Years</div>
                     </div>
                   </div>
                 </div>
@@ -298,12 +479,10 @@ const Home: React.FC = () => {
       {/* Brief Services */}
       <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn direction="up">
-            <div className="text-center mb-16">
-              <h2 className="text-primary-600 font-semibold tracking-wide uppercase text-sm mb-3">Our Expertise</h2>
-              <h3 className="text-3xl md:text-4xl font-bold text-slate-900">Comprehensive IT Solutions</h3>
-            </div>
-          </FadeIn>
+          <div className="scroll-animate text-center mb-16">
+            <h2 className="text-primary-600 font-semibold tracking-wide uppercase text-sm mb-3">Our Expertise</h2>
+            <h3 className="text-3xl md:text-4xl font-bold text-slate-900">Comprehensive IT Solutions</h3>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -326,7 +505,10 @@ const Home: React.FC = () => {
                 image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop"
               }
             ].map((service, index) => (
-              <FadeIn key={index} delay={index * 150} className="h-full">
+              <div
+                key={index}
+                className={`scroll-animate-scale ${index === 0 ? '' : index === 1 ? 'delay-200' : 'delay-400'} h-full`}
+              >
                 <div className="bg-white rounded-2xl shadow-md border border-slate-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group h-full flex flex-col">
                   {/* Image Section */}
                   <div className="relative h-56 overflow-hidden">
@@ -357,7 +539,7 @@ const Home: React.FC = () => {
                     </Link>
                   </div>
                 </div>
-              </FadeIn>
+              </div>
             ))}
           </div>
         </div>
@@ -366,13 +548,11 @@ const Home: React.FC = () => {
       {/* Technology Partners Section */}
       <section className="py-16 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <h2 className="text-center text-2xl md:text-3xl font-bold text-white mb-12">
-              Trusted Technology Partners
-            </h2>
-          </FadeIn>
+          <h2 className="scroll-animate text-center text-2xl md:text-3xl font-bold text-white mb-12">
+            Trusted Technology Partners
+          </h2>
 
-          <FadeIn delay={200}>
+          <div className="scroll-animate delay-200">
             <div className="relative overflow-hidden">
               <div className="flex animate-scroll items-center">
               {(() => {
@@ -408,31 +588,31 @@ const Home: React.FC = () => {
               })()}
               </div>
             </div>
-          </FadeIn>
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <FadeIn direction="up">
-            <div className="bg-slate-900 rounded-3xl p-12 md:p-16 text-center md:text-left relative overflow-hidden">
-              <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-primary-600 rounded-full opacity-20 blur-3xl"></div>
-              <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-purple-600 rounded-full opacity-20 blur-3xl"></div>
+          <div className="scroll-animate-scale">
+            <div className="bg-gradient-to-br from-primary-900 to-primary-700 rounded-3xl p-12 md:p-16 text-center md:text-left relative overflow-hidden shadow-2xl">
+              <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-primary-400 rounded-full opacity-20 blur-3xl"></div>
+              <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-primary-500 rounded-full opacity-20 blur-3xl"></div>
 
               <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div className="max-w-2xl">
                   <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to transform your business?</h2>
-                  <p className="text-slate-300 text-lg">
+                  <p className="text-slate-100 text-lg">
                     Join hundreds of successful companies who trust Cerventech with their digital future.
                   </p>
                 </div>
-                <Link href="/contact" className="whitespace-nowrap px-8 py-4 bg-white text-slate-900 rounded-lg font-bold hover:bg-slate-100 transition-colors shadow-lg">
+                <Link href="/contact" className="whitespace-nowrap px-8 py-4 bg-white text-primary-700 rounded-lg font-bold hover:bg-slate-50 hover:scale-105 transition-all shadow-xl">
                   Get a Quote
                 </Link>
               </div>
             </div>
-          </FadeIn>
+          </div>
         </div>
       </section>
     </div>

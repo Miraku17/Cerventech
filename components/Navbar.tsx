@@ -38,9 +38,9 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav 
+    <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm py-4' : 'bg-transparent py-6'
+        scrolled ? 'bg-white/95 backdrop-blur-sm shadow-md py-4' : 'bg-white/90 backdrop-blur-sm shadow-sm py-6'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
                 className={`text-sm font-medium transition-colors hover:text-primary-600 ${
                   isActive(link.path)
                     ? 'text-primary-600'
-                    : (scrolled || pathname !== '/' ? 'text-slate-600' : 'text-white/90 hover:text-white')
+                    : 'text-slate-700'
                 }`}
               >
                 {link.name}
@@ -79,9 +79,7 @@ const Navbar: React.FC = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`p-2 rounded-md ${
-                scrolled || pathname !== '/' ? 'text-slate-900' : 'text-slate-900'
-              }`}
+              className="p-2 rounded-md text-slate-900"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
