@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Settings, Headphones, Wrench } from 'lucide-react';
+import NetworkSphere from '@/components/NetworkSphere';
 
 const Home: React.FC = () => {
   const parallaxRef = useRef<HTMLImageElement>(null);
@@ -383,60 +384,9 @@ const Home: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Visual - Image with Floating Services */}
-            <div className="relative animate-fade-in-up delay-400 hidden lg:block">
-              <div className="relative">
-                {/* Main Image */}
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
-                  <Image
-                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
-                    alt="IT Team Collaboration"
-                    width={600}
-                    height={600}
-                    className="object-cover w-full h-[600px]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary-900/40 via-transparent to-transparent"></div>
-                </div>
-
-                {/* Floating Card 1 - Manage IT Solutions */}
-                <div className="absolute -left-8 top-20 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-float border border-primary-100">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
-                      <Settings className="text-white" size={24} />
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold text-slate-900">Managed IT</div>
-                      <div className="text-xs text-slate-600">24/7 Support</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Floating Card 2 - End User Support */}
-                <div className="absolute -right-8 top-1/3 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-float border border-primary-100" style={{ animationDelay: '1s' }}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center">
-                      <Headphones className="text-white" size={24} />
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold text-slate-900">User Support</div>
-                      <div className="text-xs text-slate-600">Expert Help</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Floating Card 3 - Technology Support */}
-                <div className="absolute -left-8 bottom-24 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-float border border-primary-100" style={{ animationDelay: '0.5s' }}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary-700 to-primary-800 rounded-lg flex items-center justify-center">
-                      <Wrench className="text-white" size={24} />
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold text-slate-900">Tech Support</div>
-                      <div className="text-xs text-slate-600">20+ Years</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {/* Right Visual - Network Sphere Animation */}
+            <div className="relative animate-fade-in-up delay-400 hidden lg:block h-[600px]">
+              <NetworkSphere />
             </div>
           </div>
         </div>
