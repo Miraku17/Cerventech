@@ -47,7 +47,7 @@ const Career: React.FC = () => {
     : jobs.filter(job => job.department === selectedDepartment);
 
   return (
-    <div className="pt-20">
+    <div className="pt-40 md:pt-20">
       <style>{`
         @keyframes fadeIn {
           from {
