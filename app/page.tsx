@@ -9,6 +9,7 @@ const Home: React.FC = () => {
   const parallaxRef = useRef<HTMLImageElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [businessWordIndex, setBusinessWordIndex] = React.useState(0);
+  const [expandedSection, setExpandedSection] = React.useState<string | null>(null);
 
   const businessWords = ['business', 'success', 'growth', 'future'];
 
@@ -475,6 +476,128 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section> */}
+
+      {/* Who We Are Section */}
+      <section className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Left Content */}
+            <div className="scroll-animate-left space-y-8">
+              {/* Header */}
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-0.5 bg-primary-600"></div>
+                <h2 className="text-primary-600 font-semibold text-sm uppercase tracking-wide">Who We Are</h2>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
+                Driving business growth through IT excellence.
+              </h3>
+
+              {/* Description */}
+              <div className="space-y-6 text-lg text-slate-600 leading-relaxed">
+                <p>
+                  We are a premier managed IT services provider dedicated to empowering businesses with innovative technology solutions. Our expertise spans across comprehensive IT management, end-user support, and cutting-edge technology services.
+                </p>
+                <p>
+                  With a customer-first approach and nationwide reach, we deliver scalable, reliable, and flexible services that transform operations and drive measurable business outcomes.
+                </p>
+              </div>
+
+              {/* Expandable Sections */}
+              <div className="space-y-4 pt-6">
+                {/* Customer Experience First */}
+                <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
+                  <button
+                    onClick={() => setExpandedSection(expandedSection === 'customer' ? null : 'customer')}
+                    className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-slate-50 transition-colors"
+                  >
+                    <h4 className="text-xl font-bold text-slate-900">Customer Experience First</h4>
+                    <ArrowRight
+                      className={`text-primary-600 flex-shrink-0 transition-transform duration-300 ${
+                        expandedSection === 'customer' ? 'rotate-90' : ''
+                      }`}
+                      size={24}
+                    />
+                  </button>
+                  <div
+                    className={`transition-all duration-300 ease-in-out ${
+                      expandedSection === 'customer' ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    } overflow-hidden`}
+                  >
+                    <div className="px-8 pb-6 text-slate-600 leading-relaxed border-t border-slate-100 pt-6">
+                      We design every service around ease, speed, and satisfaction—ensuring that end users enjoy a seamless support journey. Our dedicated team prioritizes your needs, delivering responsive and professional assistance 24/7.
+                    </div>
+                  </div>
+                </div>
+
+                {/* Nationwide Reach */}
+                <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
+                  <button
+                    onClick={() => setExpandedSection(expandedSection === 'nationwide' ? null : 'nationwide')}
+                    className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-slate-50 transition-colors"
+                  >
+                    <h4 className="text-xl font-bold text-slate-900">Nationwide Reach</h4>
+                    <ArrowRight
+                      className={`text-primary-600 flex-shrink-0 transition-transform duration-300 ${
+                        expandedSection === 'nationwide' ? 'rotate-90' : ''
+                      }`}
+                      size={24}
+                    />
+                  </button>
+                  <div
+                    className={`transition-all duration-300 ease-in-out ${
+                      expandedSection === 'nationwide' ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    } overflow-hidden`}
+                  >
+                    <div className="px-8 pb-6 text-slate-600 leading-relaxed border-t border-slate-100 pt-6">
+                      With operations spanning across the country, we provide consistent, high-quality IT services regardless of your location. Our extensive network ensures rapid response times and local expertise wherever you need it.
+                    </div>
+                  </div>
+                </div>
+
+                {/* Scalable Services */}
+                <div className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow">
+                  <button
+                    onClick={() => setExpandedSection(expandedSection === 'scalable' ? null : 'scalable')}
+                    className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-slate-50 transition-colors"
+                  >
+                    <h4 className="text-xl font-bold text-slate-900">Scalable, Reliable, Flexible Services</h4>
+                    <ArrowRight
+                      className={`text-primary-600 flex-shrink-0 transition-transform duration-300 ${
+                        expandedSection === 'scalable' ? 'rotate-90' : ''
+                      }`}
+                      size={24}
+                    />
+                  </button>
+                  <div
+                    className={`transition-all duration-300 ease-in-out ${
+                      expandedSection === 'scalable' ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    } overflow-hidden`}
+                  >
+                    <div className="px-8 pb-6 text-slate-600 leading-relaxed border-t border-slate-100 pt-6">
+                      Our solutions grow with your business. Whether you're a startup or an enterprise, we provide flexible IT services that adapt to your changing needs, ensuring reliable performance at every stage of your journey.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Image - Full Height */}
+            <div className="scroll-animate-right relative lg:block hidden">
+              <div className="sticky top-24 h-[700px] rounded-2xl overflow-hidden shadow-2xl">
+                <Image
+                  src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop"
+                  alt="Team Working Together"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Brief Services */}
       <section className="py-24 bg-slate-50">
