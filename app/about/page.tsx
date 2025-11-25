@@ -221,23 +221,25 @@ const About: React.FC = () => {
                   <h3 className="text-3xl font-bold text-slate-900 mb-4">Our Mission</h3>
 
                   {/* Description */}
-                  <p className="text-lg text-slate-600 leading-relaxed mb-6">
-                    To empower businesses with innovative IT solutions that drive growth, efficiency, and competitive advantage. We are committed to delivering exceptional service quality while maintaining cost-effectiveness and building lasting partnerships.
-                  </p>
+                  <div className="space-y-4 text-lg text-slate-600 leading-relaxed mb-6">
+                    <p>To increase company productivity by providing full technical support and maintenance programs.</p>
+                    <p>To deliver fast and efficient on-site and off-site technical service.</p>
+                    <p>To offer prompt quality service by hiring the best, highly skilled and trained technical manpower.</p>
+                  </div>
 
                   {/* Key Points */}
                   <div className="space-y-3">
                     <div className="flex items-center">
                       <div className="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
-                      <span className="text-slate-700">Deliver value through innovation</span>
+                      <span className="text-slate-700">Full technical support & maintenance</span>
                     </div>
                     <div className="flex items-center">
                       <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                      <span className="text-slate-700">Ensure cost-effective solutions</span>
+                      <span className="text-slate-700">Fast on-site and off-site service</span>
                     </div>
                     <div className="flex items-center">
                       <div className="w-2 h-2 bg-cyan-500 rounded-full mr-3"></div>
-                      <span className="text-slate-700">Build strong partnerships</span>
+                      <span className="text-slate-700">Highly skilled technical manpower</span>
                     </div>
                   </div>
                 </div>
@@ -354,6 +356,162 @@ const About: React.FC = () => {
                 </div>
               </div>
             </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* Operational History Section */}
+      <section className="py-24 bg-gradient-to-br from-slate-50 to-blue-50 relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-primary-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <div className="text-center mb-16">
+              <div className="inline-block px-6 py-2 rounded-full bg-primary-50 border border-primary-200 mb-4">
+                <span className="text-primary-600 font-semibold text-sm uppercase tracking-wider">Our Track Record</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Operational History</h2>
+              <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+                Delivering excellence across diverse industries and sectors
+              </p>
+            </div>
+          </FadeIn>
+
+          {/* Timeline */}
+          <div className="relative max-w-6xl mx-auto">
+            {/* Vertical Line */}
+            <div className="absolute left-[200px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 via-blue-500 to-cyan-500 hidden md:block"></div>
+
+            <div className="space-y-12">
+              {/* Rustan Coffee Corp */}
+              <FadeIn delay={100}>
+                <div className="relative flex flex-col md:flex-row gap-8 items-start">
+                  {/* Date Section */}
+                  <div className="md:w-[200px] flex-shrink-0">
+                    <div className="text-right pr-8">
+                      <div className="inline-block md:block text-left md:text-right">
+                        <div className="text-lg font-bold text-primary-600 mb-1">Sept 2024</div>
+                        <div className="text-sm text-slate-500">PRESENT</div>
+                        <div className="inline-block px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold mt-2">
+                          Ongoing
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Timeline Dot */}
+                  <div className="hidden md:flex absolute left-[200px] -ml-3 w-6 h-6 bg-gradient-to-br from-primary-500 to-blue-500 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  </div>
+
+                  {/* Content Card */}
+                  <div className="flex-1 md:ml-12">
+                    <div className="group relative">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-primary-500 to-blue-500 rounded-2xl opacity-0 group-hover:opacity-100 blur transition duration-500"></div>
+                      <div className="relative bg-white rounded-2xl p-6 shadow-lg border-2 border-slate-100 hover:border-transparent transition-all">
+                        <div className="flex items-start justify-between mb-4">
+                          <div>
+                            <h3 className="text-2xl font-bold text-slate-900 mb-2">RUSTAN COFFEE CORP</h3>
+                            <div className="inline-block px-3 py-1 bg-orange-100 text-orange-700 rounded-lg text-sm font-semibold">
+                              FOOD & BEVERAGE
+                            </div>
+                          </div>
+                        </div>
+                        <p className="text-slate-600 leading-relaxed">
+                          Nationwide POS Managed Service, maintaining Managers Workstation, Back-office server, POS printer, payment terminals, labeler, network infra, Store Opening support from site survey to securing permit, testing and commissioning and standby support for core stores and Drive-Thru stores
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+
+              {/* Bostik */}
+              <FadeIn delay={200}>
+                <div className="relative flex flex-col md:flex-row gap-8 items-start">
+                  {/* Date Section */}
+                  <div className="md:w-[200px] flex-shrink-0">
+                    <div className="text-right pr-8">
+                      <div className="inline-block md:block text-left md:text-right">
+                        <div className="text-lg font-bold text-blue-600 mb-1">June 2023</div>
+                        <div className="text-sm text-slate-500">PRESENT</div>
+                        <div className="inline-block px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold mt-2">
+                          Ongoing
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Timeline Dot */}
+                  <div className="hidden md:flex absolute left-[200px] -ml-3 w-6 h-6 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  </div>
+
+                  {/* Content Card */}
+                  <div className="flex-1 md:ml-12">
+                    <div className="group relative">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl opacity-0 group-hover:opacity-100 blur transition duration-500"></div>
+                      <div className="relative bg-white rounded-2xl p-6 shadow-lg border-2 border-slate-100 hover:border-transparent transition-all">
+                        <div className="flex items-start justify-between mb-4">
+                          <div>
+                            <h3 className="text-2xl font-bold text-slate-900 mb-2">BOSTIK</h3>
+                            <div className="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-lg text-sm font-semibold">
+                              MANUFACTURING
+                            </div>
+                          </div>
+                        </div>
+                        <p className="text-slate-600 leading-relaxed">
+                          End User Support for desktop laptop and Network infra
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+
+              {/* Hanes & Morritz */}
+              <FadeIn delay={300}>
+                <div className="relative flex flex-col md:flex-row gap-8 items-start">
+                  {/* Date Section */}
+                  <div className="md:w-[200px] flex-shrink-0">
+                    <div className="text-right pr-8">
+                      <div className="inline-block md:block text-left md:text-right">
+                        <div className="text-lg font-bold text-cyan-600 mb-1">Apr 2023</div>
+                        <div className="text-sm text-slate-500">June 2023</div>
+                        <div className="inline-block px-2 py-1 bg-slate-100 text-slate-700 rounded text-xs font-semibold mt-2">
+                          Completed
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Timeline Dot */}
+                  <div className="hidden md:flex absolute left-[200px] -ml-3 w-6 h-6 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+
+                  {/* Content Card */}
+                  <div className="flex-1 md:ml-12">
+                    <div className="group relative">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-2xl opacity-0 group-hover:opacity-100 blur transition duration-500"></div>
+                      <div className="relative bg-white rounded-2xl p-6 shadow-lg border-2 border-slate-100 hover:border-transparent transition-all">
+                        <div className="flex items-start justify-between mb-4">
+                          <div>
+                            <h3 className="text-2xl font-bold text-slate-900 mb-2">HANES & MORRITZ</h3>
+                            <div className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-sm font-semibold">
+                              RETAIL
+                            </div>
+                          </div>
+                        </div>
+                        <p className="text-slate-600 leading-relaxed">
+                          Nationwide deployment of HP Aruba access point and network infra support
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            </div>
           </div>
         </div>
       </section>

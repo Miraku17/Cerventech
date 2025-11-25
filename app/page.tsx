@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Settings, Headphones, Wrench } from 'lucide-react';
+import { ArrowRight, Settings, Headphones, Wrench, Users, Target, Shield, MessageCircle, UsersRound, Zap, Rocket } from 'lucide-react';
 
 const Home: React.FC = () => {
   const parallaxRef = useRef<HTMLImageElement>(null);
@@ -369,14 +369,14 @@ const Home: React.FC = () => {
 
               {/* Trusted Partners */}
               <div className="animate-fade-in-up delay-700 pt-8 border-t border-slate-200">
-                <div className="text-sm text-slate-500 mb-4">Trusted by Market Leaders</div>
+                <div className="text-sm text-slate-500 mb-4">Key Market Partners</div>
                 <div className="flex flex-wrap gap-4">
                   {[
                     { name: 'IBM', logo: '/partners/IBM.png' },
                     { name: 'Lenovo', logo: '/partners/Lenovo_Global_Corporate_Logo.png' },
                     { name: 'HP Enterprise', logo: '/partners/hp_enterprise_logo_the_branding_journal.jpg' },
                     { name: 'Fujitsu', logo: '/partners/Fujitsu-Logo.png' },
-                    { name: 'Kyndryl', logo: '/partners/Kyndryl_logo.png' },
+                    { name: 'Starbucks', logo: '/partners/starbucks.webp' },
                   ].map((partner, index) => (
                     <div
                       key={index}
@@ -400,22 +400,22 @@ const Home: React.FC = () => {
               <div className="space-y-4">
                 {/* Service Cards Grid */}
                 <div className="grid grid-cols-2 gap-4">
-                  {/* IT Infrastructure */}
-                  <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-primary-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                      <Settings className="text-white" size={24} />
-                    </div>
-                    <h4 className="text-slate-900 font-bold text-lg mb-2">IT Infrastructure</h4>
-                    <p className="text-slate-600 text-sm leading-relaxed">Robust infrastructure solutions</p>
-                  </div>
-
                   {/* Field Engineer */}
-                  <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group animate-fade-in-up delay-500">
+                  <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                     <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                       <Wrench className="text-white" size={24} />
                     </div>
                     <h4 className="text-slate-900 font-bold text-lg mb-2">Field Engineer</h4>
                     <p className="text-slate-600 text-sm leading-relaxed">On-site technical expertise</p>
+                  </div>
+
+                  {/* IT Infrastructure */}
+                  <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group animate-fade-in-up delay-500">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-primary-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <Settings className="text-white" size={24} />
+                    </div>
+                    <h4 className="text-slate-900 font-bold text-lg mb-2">Service Desk Support</h4>
+                    <p className="text-slate-600 text-sm leading-relaxed">Robust infrastructure solutions</p>
                   </div>
 
                   {/* Identity and Access Management */}
@@ -426,7 +426,7 @@ const Home: React.FC = () => {
                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                       </svg>
                     </div>
-                    <h4 className="text-slate-900 font-bold text-lg mb-2">Identity & Access Management</h4>
+                    <h4 className="text-slate-900 font-bold text-lg mb-2">User Access Management</h4>
                     <p className="text-slate-600 text-sm leading-relaxed">Secure access control</p>
                   </div>
 
@@ -647,11 +647,11 @@ const Home: React.FC = () => {
             <h3 className="text-3xl md:text-4xl font-bold text-slate-900">Comprehensive IT Solutions</h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 icon: Settings,
-                title: "Manage IT Solutions",
+                title: "Manage IT Services",
                 desc: "Delivering tailored managed services that enhance efficiency and value for your business needs.",
                 image: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2070&auto=format&fit=crop"
               },
@@ -666,6 +666,12 @@ const Home: React.FC = () => {
                 title: "Technology Support",
                 desc: "Our certified team offers reliable support, leveraging over twenty years of industry experience.",
                 image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop"
+              },
+              {
+                icon: Users,
+                title: "Recruitment Staff Augmentation",
+                desc: "Access to qualified IT professionals to augment your team and meet project demands efficiently.",
+                image: "https://images.unsplash.com/photo-1758874385393-3ef15b394a86?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
               }
             ].map((service, index) => (
               <div
@@ -708,6 +714,162 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Tech Support Soft Skills Section */}
+      <section className="py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(59, 130, 246, 0.4) 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
+          }}></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="scroll-animate text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Tech Support Soft Skills</h2>
+            <p className="text-lg text-slate-300">The qualities that make our team exceptional</p>
+          </div>
+
+          {/* Desktop Circular Layout */}
+          <div className="hidden lg:block relative min-h-[600px]">
+            {/* Central Circle with Icon */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative w-64 h-64 bg-gradient-to-br from-primary-500 to-blue-600 rounded-full flex items-center justify-center shadow-2xl animate-pulse">
+                <div className="w-56 h-56 bg-white rounded-full flex items-center justify-center">
+                  <div className="text-center">
+                    <Headphones className="text-primary-600 mx-auto mb-2" size={64} />
+                    <p className="text-sm font-semibold text-slate-700">Tech Support</p>
+                    <p className="text-xs text-slate-500">Excellence</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Skill Items in Circle */}
+            <div className="relative w-full h-[600px]">
+              {[
+                { skill: 'Experienced', angle: 0, color: 'from-blue-500 to-cyan-500', icon: Target, bgColor: 'bg-blue-500/10' },
+                { skill: 'Reliable', angle: 60, color: 'from-purple-500 to-pink-500', icon: Shield, bgColor: 'bg-purple-500/10' },
+                { skill: 'Communication Skills', angle: 120, color: 'from-orange-500 to-red-500', icon: MessageCircle, bgColor: 'bg-orange-500/10' },
+                { skill: 'Teamwork', angle: 180, color: 'from-green-500 to-emerald-500', icon: UsersRound, bgColor: 'bg-green-500/10' },
+                { skill: 'Tech-Savvy', angle: 240, color: 'from-indigo-500 to-purple-500', icon: Zap, bgColor: 'bg-indigo-500/10' },
+                { skill: 'Proactive', angle: 300, color: 'from-pink-500 to-rose-500', icon: Rocket, bgColor: 'bg-pink-500/10' }
+              ].map((item, index) => {
+                const radius = 250;
+                const angleRad = (item.angle * Math.PI) / 180;
+                const x = Math.cos(angleRad) * radius;
+                const y = Math.sin(angleRad) * radius;
+                const IconComponent = item.icon;
+
+                return (
+                  <div
+                    key={index}
+                    className="absolute scroll-animate-scale z-10"
+                    style={{
+                      top: '50%',
+                      left: '50%',
+                      transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`,
+                      animationDelay: `${index * 0.1}s`
+                    }}
+                  >
+                    <div className="group relative">
+                      {/* Futuristic card */}
+                      <div className="relative backdrop-blur-xl bg-white/10 rounded-2xl p-6 shadow-xl border border-white/20 hover:bg-white/20 transition-all duration-300 min-w-[180px]">
+                        {/* Background pattern */}
+                        <div className="absolute inset-0 opacity-5" style={{
+                          backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.3) 1px, transparent 0)`,
+                          backgroundSize: '20px 20px'
+                        }}></div>
+
+                        {/* Content */}
+                        <div className="relative text-center">
+                          {/* Icon container with gradient */}
+                          <div className={`relative mx-auto w-16 h-16 rounded-xl bg-gradient-to-br ${item.color} p-0.5 mb-4 transition-transform duration-300`}>
+                            <div className={`w-full h-full ${item.bgColor} backdrop-blur-sm rounded-xl flex items-center justify-center`}>
+                              <IconComponent className="text-white" size={32} />
+                            </div>
+                          </div>
+
+                          {/* Skill text */}
+                          <h4 className="font-bold text-sm text-white">
+                            {item.skill}
+                          </h4>
+
+                          {/* Decorative line */}
+                          <div className={`mt-2 h-0.5 w-12 mx-auto bg-gradient-to-r ${item.color} opacity-50 transition-all duration-300`}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Mobile & Tablet Grid Layout */}
+          <div className="lg:hidden">
+            {/* Central Icon */}
+            <div className="flex justify-center mb-12">
+              <div className="relative w-48 h-48 bg-gradient-to-br from-primary-500 to-blue-600 rounded-full flex items-center justify-center shadow-2xl animate-pulse">
+                <div className="w-40 h-40 bg-white rounded-full flex items-center justify-center">
+                  <div className="text-center">
+                    <Headphones className="text-primary-600 mx-auto mb-2" size={48} />
+                    <p className="text-xs font-semibold text-slate-700">Tech Support</p>
+                    <p className="text-[10px] text-slate-500">Excellence</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Skills Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {[
+                { skill: 'Experienced', color: 'from-blue-500 to-cyan-500', icon: Target, bgColor: 'bg-blue-500/10' },
+                { skill: 'Reliable', color: 'from-purple-500 to-pink-500', icon: Shield, bgColor: 'bg-purple-500/10' },
+                { skill: 'Communication Skills', color: 'from-orange-500 to-red-500', icon: MessageCircle, bgColor: 'bg-orange-500/10' },
+                { skill: 'Teamwork', color: 'from-green-500 to-emerald-500', icon: UsersRound, bgColor: 'bg-green-500/10' },
+                { skill: 'Tech-Savvy', color: 'from-indigo-500 to-purple-500', icon: Zap, bgColor: 'bg-indigo-500/10' },
+                { skill: 'Proactive', color: 'from-pink-500 to-rose-500', icon: Rocket, bgColor: 'bg-pink-500/10' }
+              ].map((item, index) => {
+                const IconComponent = item.icon;
+                return (
+                  <div key={index} className="scroll-animate-scale" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <div className="group relative">
+                      {/* Futuristic card */}
+                      <div className="relative backdrop-blur-xl bg-white/10 rounded-2xl p-6 shadow-xl border border-white/20 hover:bg-white/20 transition-all duration-300 h-full">
+                        {/* Background pattern */}
+                        <div className="absolute inset-0 opacity-5" style={{
+                          backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.3) 1px, transparent 0)`,
+                          backgroundSize: '20px 20px'
+                        }}></div>
+
+                        {/* Content */}
+                        <div className="relative text-center">
+                          {/* Icon container with gradient */}
+                          <div className={`relative mx-auto w-16 h-16 rounded-xl bg-gradient-to-br ${item.color} p-0.5 mb-4 transition-transform duration-300`}>
+                            <div className={`w-full h-full ${item.bgColor} backdrop-blur-sm rounded-xl flex items-center justify-center`}>
+                              <IconComponent className="text-white" size={32} />
+                            </div>
+                          </div>
+
+                          {/* Skill text */}
+                          <h4 className="font-bold text-sm text-white">
+                            {item.skill}
+                          </h4>
+
+                          {/* Decorative line */}
+                          <div className={`mt-2 h-0.5 w-12 mx-auto bg-gradient-to-r ${item.color} opacity-50 transition-all duration-300`}></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Technology Partners Section */}
       <section className="py-16 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -723,7 +885,7 @@ const Home: React.FC = () => {
                   { name: 'Fujifilm', logo: '/partners/Fujifilm-Logo.png' },
                   { name: 'Fujitsu', logo: '/partners/Fujitsu-Logo.png' },
                   { name: 'IBM', logo: '/partners/IBM.png' },
-                  { name: 'Kyndryl', logo: '/partners/Kyndryl_logo.png' },
+                  { name: 'Starbucks', logo: '/partners/starbucks.webp' },
                   { name: 'Lenovo', logo: '/partners/Lenovo_Global_Corporate_Logo.png' },
                   { name: 'VST ECS', logo: '/partners/VST-ECS-logo-01-1.png' },
                   { name: 'Fastronics', logo: '/partners/fastronics.jpeg' },
