@@ -17,7 +17,7 @@ const Career: React.FC = () => {
       department: 'Technical Support',
       location: 'Makati, PH',
       type: 'Full-time',
-      salary: '25,000 / month',
+      salary: '20,000+ / month',
       description: 'Provides on-site technical support, installation, maintenance, and troubleshooting for systems and equipment in various industries.'
     },
     {
@@ -26,7 +26,7 @@ const Career: React.FC = () => {
       department: 'IT Support',
       location: 'Makati, PH',
       type: 'Full-time',
-      salary: '25,000 / month',
+      salary: '20,000+ / month',
       description: 'IT professional who provides first-line technical support to users, acting as a point of contact for resolving IT-related issues.'
     }
   ];

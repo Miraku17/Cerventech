@@ -2,43 +2,90 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { Code, Server, Smartphone, Layout, Database, Lock, Cpu, BarChart } from 'lucide-react';
-import { Service } from '@/types';
+import { Server, Headphones, Wrench, Settings, Network, Cable, Shield, HardDrive, Briefcase, Users, Award } from 'lucide-react';
 import FadeIn from '@/components/FadeIn';
 
 const Services: React.FC = () => {
   const services = [
     {
-      id: 'pos-support',
-      title: 'Point of Sale IT Support',
-      subtitle: 'Building websites that drive revenue.',
-      description: 'Expert support for your point of sale systems, ensuring seamless transactions and operations.',
-      icon: Server,
+      id: 'service-desk',
+      title: 'Service Desk/Deskside End User Support',
+      subtitle: 'Comprehensive user assistance',
+      description: 'Round-the-clock technical support for end users, ensuring productivity and minimal downtime.',
+      icon: Headphones,
       gradient: 'from-blue-500 via-cyan-500 to-teal-500',
     },
     {
-      id: 'web-dev',
-      title: 'Web Development',
-      subtitle: 'Transforms ideas into reality.',
-      description: 'We create web projects that add value to your customers by providing an engaging user experience.',
-      icon: Code,
+      id: 'field-support',
+      title: 'Field/Onsite Support',
+      subtitle: 'On-location technical expertise',
+      description: 'Expert on-site support for POS systems, POS printers, desktops, and laptops with rapid response times.',
+      icon: Wrench,
       gradient: 'from-purple-500 via-pink-500 to-red-500',
     },
     {
-      id: 'no-code',
-      title: 'No-code Development',
-      subtitle: 'Solutions for quick launches.',
-      description: 'Our no-code development enables the creation of fully functional web apps with user roles, dashboards, and views',
-      icon: Layout,
+      id: 'maintenance',
+      title: 'Corrective and Preventive Maintenance',
+      subtitle: 'Proactive system care',
+      description: 'Scheduled maintenance and rapid corrective actions to keep your IT infrastructure running smoothly.',
+      icon: Settings,
       gradient: 'from-orange-500 via-amber-500 to-yellow-500',
     },
     {
-      id: 'mvp',
-      title: 'MVP Development',
-      subtitle: 'Validate assumptions and save costs',
-      description: 'A risk-free approach that saves time, enabling you to test your product\'s viability and collect valuable user feedback',
-      icon: Cpu,
+      id: 'network-infra',
+      title: 'Network Infra Management',
+      subtitle: 'Robust network solutions',
+      description: 'Professional management and optimization of your network infrastructure for peak performance.',
+      icon: Network,
       gradient: 'from-green-500 via-emerald-500 to-teal-500',
+    },
+    {
+      id: 'cabling',
+      title: 'Cabling Management',
+      subtitle: 'Structured cabling systems',
+      description: 'Professional installation and management of network cabling infrastructure to industry standards.',
+      icon: Cable,
+      gradient: 'from-indigo-500 via-purple-500 to-pink-500',
+    },
+    {
+      id: 'user-access',
+      title: 'User Access Management',
+      subtitle: 'Secure access control',
+      description: 'Comprehensive user access management ensuring security and compliance across your organization.',
+      icon: Shield,
+      gradient: 'from-red-500 via-orange-500 to-amber-500',
+    },
+    {
+      id: 'hubs-switches',
+      title: 'Maintenance of Hubs & Switches',
+      subtitle: 'Network equipment care',
+      description: 'Expert maintenance and monitoring of network hubs and switches for optimal connectivity.',
+      icon: HardDrive,
+      gradient: 'from-cyan-500 via-blue-500 to-indigo-500',
+    },
+    {
+      id: 'project-mgmt',
+      title: 'Project Management',
+      subtitle: 'Strategic IT execution',
+      description: 'Professional project management for IT implementations, ensuring on-time and on-budget delivery.',
+      icon: Briefcase,
+      gradient: 'from-pink-500 via-rose-500 to-red-500',
+    },
+    {
+      id: 'recruitment',
+      title: 'Recruitment Staff Augmentation',
+      subtitle: 'Skilled IT professionals',
+      description: 'Access to qualified IT professionals to augment your team and meet project demands.',
+      icon: Users,
+      gradient: 'from-teal-500 via-green-500 to-emerald-500',
+    },
+    {
+      id: 'lenovo-service',
+      title: 'Authorized Lenovo Service Center',
+      subtitle: 'Official parts and labor',
+      description: 'Authorized service center for Lenovo products, providing genuine parts and certified repairs.',
+      icon: Award,
+      gradient: 'from-amber-500 via-yellow-500 to-orange-500',
     },
   ];
 
@@ -174,6 +221,15 @@ const Services: React.FC = () => {
                       <p className="text-slate-600 text-sm">Dedicated support focused on your satisfaction and business growth</p>
                     </div>
                   </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 rounded-full bg-primary-100 flex items-center justify-center flex-shrink-0 mt-1">
+                      <div className="w-2 h-2 rounded-full bg-primary-600"></div>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-900 mb-1">Recruitment Staff Augmentation</h3>
+                      <p className="text-slate-600 text-sm">Access to qualified IT professionals to augment your team and meet project demands</p>
+                    </div>
+                  </div>
                 </div>
             </div>
 
@@ -238,7 +294,7 @@ const Services: React.FC = () => {
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Our Services</h2>
               <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-                We offer an extensive array of services tailored to address the specific needs of our clients in the digital space.
+                Comprehensive IT managed services tailored to meet the unique needs of your business operations.
               </p>
             </div>
           </FadeIn>
@@ -308,14 +364,14 @@ const Services: React.FC = () => {
               {/* Main Heading */}
               <FadeIn delay={100} direction="left">
                 <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
-                  Transforming ideas into digital experiences.
+                  Delivering excellence in IT managed services.
                 </h2>
               </FadeIn>
 
               {/* Description */}
               <FadeIn delay={200} direction="left">
                 <p className="text-lg text-slate-600 mb-12 leading-relaxed">
-                  We design and develop cutting-edge websites that captivate, engage, and deliver results. Our solutions are tailored to meet the unique needs of your business.
+                  We provide comprehensive IT solutions that ensure your business runs smoothly. Our expert team delivers reliable, cost-effective services tailored to your specific requirements.
                 </p>
               </FadeIn>
 
@@ -356,12 +412,12 @@ const Services: React.FC = () => {
                     <div className="relative bg-slate-50 border border-slate-200 rounded-xl p-6 hover:border-slate-300 transition-all duration-300">
                       <div className="flex items-start gap-4">
                         <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center flex-shrink-0">
-                          <Layout className="text-white" size={24} />
+                          <Server className="text-white" size={24} />
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold text-slate-900 mb-2">Custom website solutions</h3>
+                          <h3 className="text-xl font-bold text-slate-900 mb-2">Comprehensive IT Support</h3>
                           <p className="text-slate-600 text-sm leading-relaxed">
-                            Whether it's an e-commerce platform or a corporate site, we create digital solutions tailored to your goals.
+                            From service desk to field support, we provide end-to-end IT assistance ensuring your operations run smoothly 24/7.
                           </p>
                         </div>
                       </div>
@@ -376,12 +432,12 @@ const Services: React.FC = () => {
                     <div className="relative bg-slate-50 border border-slate-200 rounded-xl p-6 hover:border-slate-300 transition-all duration-300">
                       <div className="flex items-start gap-4">
                         <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
-                          <Smartphone className="text-white" size={24} />
+                          <Network className="text-white" size={24} />
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold text-slate-900 mb-2">User-centric design</h3>
+                          <h3 className="text-xl font-bold text-slate-900 mb-2">Network Infrastructure</h3>
                           <p className="text-slate-600 text-sm leading-relaxed">
-                            Our designs prioritize user experience, we craft visually stunning websites that provide a seamless experience across devices.
+                            Expert management of network infrastructure, cabling, hubs, and switches to ensure optimal connectivity and performance.
                           </p>
                         </div>
                       </div>
@@ -396,12 +452,12 @@ const Services: React.FC = () => {
                     <div className="relative bg-slate-50 border border-slate-200 rounded-xl p-6 hover:border-slate-300 transition-all duration-300">
                       <div className="flex items-start gap-4">
                         <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center flex-shrink-0">
-                          <Code className="text-white" size={24} />
+                          <Shield className="text-white" size={24} />
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold text-slate-900 mb-2">Full-stack development</h3>
+                          <h3 className="text-xl font-bold text-slate-900 mb-2">Security & Access Control</h3>
                           <p className="text-slate-600 text-sm leading-relaxed">
-                            We handle every aspect of web development. Our expertise in modern technologies ensures robust, scalable solutions.
+                            Robust user access management and security protocols to protect your business data and maintain compliance.
                           </p>
                         </div>
                       </div>
@@ -416,12 +472,12 @@ const Services: React.FC = () => {
                     <div className="relative bg-slate-50 border border-slate-200 rounded-xl p-6 hover:border-slate-300 transition-all duration-300">
                       <div className="flex items-start gap-4">
                         <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center flex-shrink-0">
-                          <BarChart className="text-white" size={24} />
+                          <Award className="text-white" size={24} />
                         </div>
                         <div>
-                          <h3 className="text-xl font-bold text-slate-900 mb-2">Performance optimization</h3>
+                          <h3 className="text-xl font-bold text-slate-900 mb-2">Authorized Service Partner</h3>
                           <p className="text-slate-600 text-sm leading-relaxed">
-                            Our development process includes SEO best practices and performance optimization for maximum visibility.
+                            Official Lenovo service center providing genuine parts, certified repairs, and warranty support.
                           </p>
                         </div>
                       </div>
@@ -446,10 +502,10 @@ const Services: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
              {[
-               { step: "01", title: "Discovery", desc: "We dive deep to understand your requirements." },
-               { step: "02", title: "Strategy", desc: "We design a roadmap and technical architecture." },
-               { step: "03", title: "Development", desc: "Agile sprints with regular feedback loops." },
-               { step: "04", title: "Launch", desc: "Testing, deployment, and post-launch support." }
+               { step: "01", title: "Assessment", desc: "We analyze your IT infrastructure and business needs." },
+               { step: "02", title: "Planning", desc: "We develop a tailored service strategy and implementation plan." },
+               { step: "03", title: "Implementation", desc: "Deployment of services with minimal disruption to operations." },
+               { step: "04", title: "Support", desc: "Ongoing monitoring, maintenance, and technical assistance." }
              ].map((item, i) => (
                <FadeIn key={i} delay={i * 150} direction="up">
                  <div className="relative">
