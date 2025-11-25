@@ -9,6 +9,11 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Cerventech | We are Innovative people',
   description: 'We are Innovative people. Expert IT Outsourced for your business. Delivering cost-effective managed services with advanced technology.',
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
 };
 
 export default function RootLayout({

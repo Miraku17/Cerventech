@@ -55,11 +55,10 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-6">Services</h3>
             <ul className="space-y-4">
-              <li><Link href="/services" className="text-slate-400 hover:text-white transition-colors">Software Development</Link></li>
-              <li><Link href="/services" className="text-slate-400 hover:text-white transition-colors">Cloud Infrastructure</Link></li>
-              <li><Link href="/services" className="text-slate-400 hover:text-white transition-colors">Data Analytics</Link></li>
-              <li><Link href="/services" className="text-slate-400 hover:text-white transition-colors">AI Solutions</Link></li>
-              <li><Link href="/services" className="text-slate-400 hover:text-white transition-colors">IT Consultancy</Link></li>
+              <li><Link href="/services" className="text-slate-400 hover:text-white transition-colors">Point of Sale IT Support</Link></li>
+              <li><Link href="/services" className="text-slate-400 hover:text-white transition-colors">Web Development</Link></li>
+              <li><Link href="/services" className="text-slate-400 hover:text-white transition-colors">No-code Development</Link></li>
+              <li><Link href="/services" className="text-slate-400 hover:text-white transition-colors">MVP Development</Link></li>
             </ul>
           </div>
 
@@ -69,15 +68,15 @@ const Footer: React.FC = () => {
             <ul className="space-y-4">
               <li className="flex items-start space-x-3 text-slate-400">
                 <MapPin size={20} className="mt-1 flex-shrink-0 text-primary-500" />
-                <span>123 Innovation Drive,<br />Tech City, TC 90210</span>
+                <span>4th Flr., Raha Sulayman Building,<br />Benavidez St, Makati City, Philippines</span>
               </li>
               <li className="flex items-center space-x-3 text-slate-400">
                 <Phone size={20} className="flex-shrink-0 text-primary-500" />
-                <span>+1 (555) 123-4567</span>
+                <span>+63 917 553 5723</span>
               </li>
               <li className="flex items-center space-x-3 text-slate-400">
                 <Mail size={20} className="flex-shrink-0 text-primary-500" />
-                <span>hello@cerventech.com</span>
+                <span>support@cerventech.com</span>
               </li>
             </ul>
           </div>

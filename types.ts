@@ -13,6 +13,8 @@ export interface JobPosition {
   department: string;
   location: string;
   type: string;
+  salary?: string;
+  description?: string;
 }
 
 export interface TeamMember {

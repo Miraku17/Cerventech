@@ -7,9 +7,13 @@ import { ArrowRight, Settings, Headphones, Wrench } from 'lucide-react';
 
 const Home: React.FC = () => {
   const parallaxRef = useRef<HTMLImageElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [businessWordIndex, setBusinessWordIndex] = React.useState(0);
   const [expandedSection, setExpandedSection] = React.useState<string | null>(null);
+  const [count1, setCount1] = React.useState(0);
+  const [count2, setCount2] = React.useState(0);
+  const [hasAnimated, setHasAnimated] = React.useState(false);
+  const [progress, setProgress] = React.useState(0);
+  const statsRef = useRef<HTMLDivElement>(null);
 
   const businessWords = ['business', 'success', 'growth', 'future'];
 
@@ -25,65 +29,6 @@ const Home: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Interactive grid effect
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // Set canvas size
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const gridSize = 50;
-    const filledSquares = new Map<string, number>();
-
-    const drawGrid = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Draw filled squares
-      filledSquares.forEach((opacity, key) => {
-        const [x, y] = key.split(',').map(Number);
-        ctx.fillStyle = `rgba(59, 130, 246, ${opacity * 0.15})`;
-        ctx.fillRect(x * gridSize, y * gridSize, gridSize, gridSize);
-
-        // Fade out
-        const newOpacity = opacity - 0.02;
-        if (newOpacity <= 0) {
-          filledSquares.delete(key);
-        } else {
-          filledSquares.set(key, newOpacity);
-        }
-      });
-
-      requestAnimationFrame(drawGrid);
-    };
-    drawGrid();
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      const x = Math.floor((e.clientX - rect.left) / gridSize);
-      const y = Math.floor((e.clientY - rect.top) / gridSize);
-      const key = `${x},${y}`;
-
-      if (!filledSquares.has(key)) {
-        filledSquares.set(key, 1);
-      }
-    };
-
-    canvas.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -116,6 +61,79 @@ const Home: React.FC = () => {
       elements.forEach((el) => observer.unobserve(el));
     };
   }, []);
+
+  // Number counting animation
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.5,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+
+          // Animate progress bar from 0 to 100
+          let progressStart = 0;
+          const progressEnd = 100;
+          const progressDuration = 2000;
+          const progressIncrement = progressEnd / (progressDuration / 16);
+
+          const progressTimer = setInterval(() => {
+            progressStart += progressIncrement;
+            if (progressStart >= progressEnd) {
+              setProgress(progressEnd);
+              clearInterval(progressTimer);
+            } else {
+              setProgress(Math.floor(progressStart));
+            }
+          }, 16);
+
+          // Animate first counter to 38
+          let start1 = 0;
+          const end1 = 38;
+          const duration1 = 2000;
+          const increment1 = end1 / (duration1 / 16);
+
+          const timer1 = setInterval(() => {
+            start1 += increment1;
+            if (start1 >= end1) {
+              setCount1(end1);
+              clearInterval(timer1);
+            } else {
+              setCount1(Math.floor(start1));
+            }
+          }, 16);
+
+          // Animate second counter to 98
+          let start2 = 0;
+          const end2 = 98;
+          const duration2 = 2000;
+          const increment2 = end2 / (duration2 / 16);
+
+          const timer2 = setInterval(() => {
+            start2 += increment2;
+            if (start2 >= end2) {
+              setCount2(end2);
+              clearInterval(timer2);
+            } else {
+              setCount2(Math.floor(start2));
+            }
+          }, 16);
+        }
+      });
+    }, observerOptions);
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    return () => {
+      if (statsRef.current) {
+        observer.unobserve(statsRef.current);
+      }
+    };
+  }, [hasAnimated]);
 
   return (
     <div className="flex flex-col">
@@ -290,16 +308,10 @@ const Home: React.FC = () => {
         {/* Subtle Background Pattern */}
         <div className="absolute inset-0 overflow-hidden">
           {/* Grid Pattern */}
-          <div className="absolute inset-0 opacity-5" style={{
-            backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.5) 1px, transparent 1px)`,
+          <div className="absolute inset-0 opacity-20" style={{
+            backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.8) 1px, transparent 1px)`,
             backgroundSize: '50px 50px'
           }}></div>
-          {/* Interactive Canvas */}
-          <canvas
-            ref={canvasRef}
-            className="absolute inset-0 pointer-events-auto"
-            style={{ mixBlendMode: 'multiply' }}
-          />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20 pb-16">
@@ -383,56 +395,84 @@ const Home: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Visual - Image with Floating Services */}
+            {/* Right Visual - Modern Service Cards Grid */}
             <div className="relative animate-fade-in-up delay-400 hidden lg:block">
-              <div className="relative">
-                {/* Main Image */}
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
-                  <Image
-                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
-                    alt="IT Team Collaboration"
-                    width={600}
-                    height={600}
-                    className="object-cover w-full h-[600px]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary-900/40 via-transparent to-transparent"></div>
-                </div>
-
-                {/* Floating Card 1 - Manage IT Solutions */}
-                <div className="absolute -left-8 top-20 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-float border border-primary-100">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
+              <div className="space-y-4">
+                {/* Service Cards Grid */}
+                <div className="grid grid-cols-2 gap-4">
+                  {/* IT Infrastructure */}
+                  <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-primary-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                       <Settings className="text-white" size={24} />
                     </div>
-                    <div>
-                      <div className="text-sm font-semibold text-slate-900">Managed IT</div>
-                      <div className="text-xs text-slate-600">24/7 Support</div>
-                    </div>
+                    <h4 className="text-slate-900 font-bold text-lg mb-2">IT Infrastructure</h4>
+                    <p className="text-slate-600 text-sm leading-relaxed">Robust infrastructure solutions</p>
                   </div>
-                </div>
 
-                {/* Floating Card 2 - End User Support */}
-                <div className="absolute -right-8 top-1/3 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-float border border-primary-100" style={{ animationDelay: '1s' }}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center">
-                      <Headphones className="text-white" size={24} />
-                    </div>
-                    <div>
-                      <div className="text-sm font-semibold text-slate-900">User Support</div>
-                      <div className="text-xs text-slate-600">Expert Help</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Floating Card 3 - Technology Support */}
-                <div className="absolute -left-8 bottom-24 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl animate-float border border-primary-100" style={{ animationDelay: '0.5s' }}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary-700 to-primary-800 rounded-lg flex items-center justify-center">
+                  {/* Field Engineer */}
+                  <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group animate-fade-in-up delay-500">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                       <Wrench className="text-white" size={24} />
                     </div>
-                    <div>
-                      <div className="text-sm font-semibold text-slate-900">Tech Support</div>
-                      <div className="text-xs text-slate-600">20+ Years</div>
+                    <h4 className="text-slate-900 font-bold text-lg mb-2">Field Engineer</h4>
+                    <p className="text-slate-600 text-sm leading-relaxed">On-site technical expertise</p>
+                  </div>
+
+                  {/* Identity and Access Management */}
+                  <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group animate-fade-in-up delay-700">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary-700 to-primary-800 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <svg className="text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                      </svg>
+                    </div>
+                    <h4 className="text-slate-900 font-bold text-lg mb-2">Identity & Access Management</h4>
+                    <p className="text-slate-600 text-sm leading-relaxed">Secure access control</p>
+                  </div>
+
+                  {/* Systems Administration */}
+                  <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group animate-fade-in-up delay-900">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary-800 to-blue-700 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <svg className="text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                        <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                        <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                      </svg>
+                    </div>
+                    <h4 className="text-slate-900 font-bold text-lg mb-2">Systems Administration</h4>
+                    <p className="text-slate-600 text-sm leading-relaxed">Expert system management</p>
+                  </div>
+                </div>
+
+                {/* Stats Row with Background Fill Animation */}
+                <div ref={statsRef} className="relative bg-gradient-to-br from-primary-600 to-primary-700 rounded-2xl p-8 shadow-xl overflow-hidden">
+                  {/* Background Loading Fill */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-r from-primary-500 via-blue-500 to-cyan-500 transition-all duration-2000 ease-out"
+                    style={{
+                      width: `${progress}%`,
+                      opacity: 0.3
+                    }}
+                  ></div>
+
+                  {/* Stats Grid */}
+                  <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="text-center animate-fade-in-up delay-500">
+                      <div className="text-5xl font-bold text-white mb-3">
+                        {count1}<span className="text-primary-200">+</span>
+                      </div>
+                      <div className="text-primary-50 text-sm leading-relaxed">
+                        Manage and support various industries across the entire region of the Philippines.
+                      </div>
+                    </div>
+                    <div className="text-center animate-fade-in-up delay-700">
+                      <div className="text-5xl font-bold text-white mb-3">
+                        {count2}<span className="text-primary-200">%</span>
+                      </div>
+                      <div className="text-primary-50 text-sm leading-relaxed">
+                        Achieve a 98% client satisfaction rate, showcasing innovation.
+                      </div>
                     </div>
                   </div>
                 </div>

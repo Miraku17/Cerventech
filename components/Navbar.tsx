@@ -40,14 +40,14 @@ const Navbar: React.FC = () => {
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/95 backdrop-blur-sm shadow-md py-4' : 'bg-white/90 backdrop-blur-sm shadow-sm py-6'
+        scrolled ? 'bg-white/95 backdrop-blur-sm shadow-md py-1' : 'bg-white/90 backdrop-blur-sm shadow-sm py-2'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center group">
-            <div className="relative w-48 h-16 md:w-56 md:h-20">
+            <div className="relative w-32 h-10 md:w-40 md:h-12">
               <Image
                 src="/logo.png"
                 alt="Cerventech Logo"

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Briefcase, MapPin, Clock, ArrowRight, Users, TrendingUp, Heart } from 'lucide-react';
+import { MapPin, Clock, ArrowRight, DollarSign, Heart, Clock3, Home, TrendingUp, Calendar } from 'lucide-react';
 import { JobPosition } from '@/types';
 import FadeIn from '@/components/FadeIn';
 
@@ -12,32 +12,22 @@ const Career: React.FC = () => {
 
   const jobs: JobPosition[] = [
     {
-      id: 'fe-dev',
-      title: 'Senior Frontend Engineer',
-      department: 'Engineering',
-      location: 'Remote / Manila',
-      type: 'Full-time'
+      id: 'field-engineer',
+      title: 'Field Engineer',
+      department: 'Technical Support',
+      location: 'Makati, PH',
+      type: 'Full-time',
+      salary: '25,000 / month',
+      description: 'Provides on-site technical support, installation, maintenance, and troubleshooting for systems and equipment in various industries.'
     },
     {
-      id: 'be-dev',
-      title: 'Backend Developer (Node.js)',
-      department: 'Engineering',
-      location: 'Manila',
-      type: 'Full-time'
-    },
-    {
-      id: 'ui-ux',
-      title: 'UI/UX Designer',
-      department: 'Design',
-      location: 'Remote',
-      type: 'Contract'
-    },
-    {
-      id: 'pm',
-      title: 'Product Manager',
-      department: 'Product',
-      location: 'Cebu',
-      type: 'Full-time'
+      id: 'service-desk',
+      title: 'Service Desk',
+      department: 'IT Support',
+      location: 'Makati, PH',
+      type: 'Full-time',
+      salary: '25,000 / month',
+      description: 'IT professional who provides first-line technical support to users, acting as a point of contact for resolving IT-related issues.'
     }
   ];
 
@@ -203,16 +193,7 @@ const Career: React.FC = () => {
                     </div>
 
                     {/* Job Details */}
-                    <div className="flex flex-wrap gap-4 mb-6">
-                      <div className="flex items-center text-slate-600">
-                        <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center mr-3">
-                          <Briefcase size={18} className="text-primary-600" />
-                        </div>
-                        <div>
-                          <div className="text-xs text-slate-500">Department</div>
-                          <div className="font-semibold">{job.department}</div>
-                        </div>
-                      </div>
+                    <div className="flex flex-wrap gap-4 mb-4">
                       <div className="flex items-center text-slate-600">
                         <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center mr-3">
                           <MapPin size={18} className="text-primary-600" />
@@ -222,19 +203,40 @@ const Career: React.FC = () => {
                           <div className="font-semibold">{job.location}</div>
                         </div>
                       </div>
+                      {job.salary && (
+                        <div className="flex items-center text-slate-600">
+                          <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center mr-3">
+                            <Clock size={18} className="text-primary-600" />
+                          </div>
+                          <div>
+                            <div className="text-xs text-slate-500">Salary</div>
+                            <div className="font-semibold">{job.salary}</div>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
+                    {/* Job Description */}
+                    {job.description && (
+                      <p className="text-slate-600 leading-relaxed mb-6 text-sm">
+                        {job.description}
+                      </p>
+                    )}
+
                     {/* Apply Button */}
-                    <button className={`w-full py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
-                      hoveredJob === job.id
-                        ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/30'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                    }`}>
+                    <a
+                      href={`mailto:support@cerventech.com?subject=Application for ${encodeURIComponent(job.title)}&body=Dear Hiring Team,%0D%0A%0D%0AI would like to apply for the ${encodeURIComponent(job.title)} position.%0D%0A%0D%0APlease find my resume attached.%0D%0A%0D%0AThank you for your consideration.`}
+                      className={`w-full py-3 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 ${
+                        hoveredJob === job.id
+                          ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/30'
+                          : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                      }`}
+                    >
                       Apply Now
                       <ArrowRight size={18} className={`transition-transform ${
                         hoveredJob === job.id ? 'translate-x-1' : ''
                       }`} />
-                    </button>
+                    </a>
                   </div>
                 </div>
               </FadeIn>
@@ -251,42 +253,81 @@ const Career: React.FC = () => {
       </section>
 
       {/* Benefits */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Why Work With Us?</h2>
-              <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                We invest in our people with benefits that matter
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Benefits</h2>
+              <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                Supporting the growth and well-being of our employees. We believe that by investing in our team's personal and professional development, we build a stronger, more motivated workforce. By empowering our employees with the tools, resources, and care they need, we ensure both individual success.
               </p>
             </div>
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Competitive Salary */}
+            <FadeIn delay={50}>
+              <div className="group bg-white rounded-2xl p-8 shadow-md border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <DollarSign className="text-white" size={32} />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-slate-900">Competitive Salary</h3>
+                <p className="text-slate-600 leading-relaxed">Attractive compensation packages that recognize your skills and contributions.</p>
+              </div>
+            </FadeIn>
+
+            {/* Health Insurance */}
             <FadeIn delay={100}>
-              <div className="bg-gradient-to-br from-blue-50 to-white p-8 rounded-2xl border-2 border-blue-100 hover:border-primary-300 hover:shadow-xl transition-all group">
-                <div className="w-16 h-16 bg-primary-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <Users className="text-white" size={32} />
-                </div>
-                <h3 className="text-2xl font-bold mb-4 text-slate-900">Flexible Work</h3>
-                <p className="text-slate-600 leading-relaxed">Remote-first culture with flexible hours to maintain work-life balance and productivity.</p>
-              </div>
-            </FadeIn>
-            <FadeIn delay={200}>
-              <div className="bg-gradient-to-br from-green-50 to-white p-8 rounded-2xl border-2 border-green-100 hover:border-primary-300 hover:shadow-xl transition-all group">
-                <div className="w-16 h-16 bg-green-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <TrendingUp className="text-white" size={32} />
-                </div>
-                <h3 className="text-2xl font-bold mb-4 text-slate-900">Growth & Learning</h3>
-                <p className="text-slate-600 leading-relaxed">Annual budget for courses, conferences, and books to accelerate your professional development.</p>
-              </div>
-            </FadeIn>
-            <FadeIn delay={300}>
-              <div className="bg-gradient-to-br from-red-50 to-white p-8 rounded-2xl border-2 border-red-100 hover:border-primary-300 hover:shadow-xl transition-all group">
-                <div className="w-16 h-16 bg-red-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <div className="group bg-white rounded-2xl p-8 shadow-md border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
                   <Heart className="text-white" size={32} />
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-slate-900">Health & Wellness</h3>
-                <p className="text-slate-600 leading-relaxed">Comprehensive health insurance and wellness programs for you and your family's wellbeing.</p>
+                <h3 className="text-xl font-bold mb-3 text-slate-900">Health Insurance</h3>
+                <p className="text-slate-600 leading-relaxed">Comprehensive health coverage for you and your family's well-being.</p>
+              </div>
+            </FadeIn>
+
+            {/* Flexible Work Hours */}
+            <FadeIn delay={150}>
+              <div className="group bg-white rounded-2xl p-8 shadow-md border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <Clock3 className="text-white" size={32} />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-slate-900">Flexible Work Hours</h3>
+                <p className="text-slate-600 leading-relaxed">Work-life balance with flexible scheduling to fit your lifestyle.</p>
+              </div>
+            </FadeIn>
+
+            {/* Remote Work Options */}
+            <FadeIn delay={200}>
+              <div className="group bg-white rounded-2xl p-8 shadow-md border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <Home className="text-white" size={32} />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-slate-900">Remote Work Options</h3>
+                <p className="text-slate-600 leading-relaxed">Flexibility to work from home or anywhere that suits you best.</p>
+              </div>
+            </FadeIn>
+
+            {/* Career Growth */}
+            <FadeIn delay={250}>
+              <div className="group bg-white rounded-2xl p-8 shadow-md border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-amber-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <TrendingUp className="text-white" size={32} />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-slate-900">Career Growth</h3>
+                <p className="text-slate-600 leading-relaxed">Opportunities for professional development and career advancement.</p>
+              </div>
+            </FadeIn>
+
+            {/* Paid Time Off */}
+            <FadeIn delay={300}>
+              <div className="group bg-white rounded-2xl p-8 shadow-md border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+                  <Calendar className="text-white" size={32} />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-slate-900">Paid Time Off</h3>
+                <p className="text-slate-600 leading-relaxed">Generous vacation days and holidays to recharge and spend time with loved ones.</p>
               </div>
             </FadeIn>
           </div>
