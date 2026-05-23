@@ -385,49 +385,6 @@ const About: React.FC = () => {
             <div className="absolute left-[200px] top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-500 via-blue-500 to-cyan-500 hidden md:block"></div>
 
             <div className="space-y-12">
-              {/* Rustan Coffee Corp */}
-              <FadeIn delay={100}>
-                <div className="relative flex flex-col md:flex-row gap-8 items-start">
-                  {/* Date Section */}
-                  <div className="md:w-[200px] flex-shrink-0">
-                    <div className="text-right pr-8">
-                      <div className="inline-block md:block text-left md:text-right">
-                        <div className="text-lg font-bold text-primary-600 mb-1">Sept 2024</div>
-                        <div className="text-sm text-slate-500">PRESENT</div>
-                        <div className="inline-block px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold mt-2">
-                          Ongoing
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Timeline Dot */}
-                  <div className="hidden md:flex absolute left-[200px] -ml-3 w-6 h-6 bg-gradient-to-br from-primary-500 to-blue-500 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                  </div>
-
-                  {/* Content Card */}
-                  <div className="flex-1 md:ml-12">
-                    <div className="group relative">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-primary-500 to-blue-500 rounded-2xl opacity-0 group-hover:opacity-100 blur transition duration-500"></div>
-                      <div className="relative bg-white rounded-2xl p-6 shadow-lg border-2 border-slate-100 hover:border-transparent transition-all">
-                        <div className="flex items-start justify-between mb-4">
-                          <div>
-                            <h3 className="text-2xl font-bold text-slate-900 mb-2">RUSTAN COFFEE CORP</h3>
-                            <div className="inline-block px-3 py-1 bg-orange-100 text-orange-700 rounded-lg text-sm font-semibold">
-                              FOOD & BEVERAGE
-                            </div>
-                          </div>
-                        </div>
-                        <p className="text-slate-600 leading-relaxed">
-                          Nationwide POS Managed Service, maintaining Managers Workstation, Back-office server, POS printer, payment terminals, labeler, network infra, Store Opening support from site survey to securing permit, testing and commissioning and standby support for core stores and Drive-Thru stores
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </FadeIn>
-
               {/* Bostik */}
               <FadeIn delay={200}>
                 <div className="relative flex flex-col md:flex-row gap-8 items-start">
